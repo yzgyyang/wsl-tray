@@ -30,7 +30,8 @@ class SysTrayIcon(object):
                  menu_options=None,
                  on_quit=None,
                  default_menu_index=None,
-                 window_class_name=None):
+                 window_class_name=None,
+                 notify_dict=None):
 
         self._icon = icon
         self._icon_shared = False
@@ -53,6 +54,7 @@ class SysTrayIcon(object):
                               WM_CLOSE: self._destroy,
                               WM_COMMAND: self._command,
                               WM_USER+20: self._notify}
+        self._notify_dict = notify_dict
         self._notify_id = None
         self._message_loop_thread = None
         self._hwnd = None
@@ -212,12 +214,19 @@ class SysTrayIcon(object):
         self._notify_id = None
 
     def _notify(self, hwnd, msg, wparam, lparam):
-        if lparam == WM_LBUTTONDBLCLK:
+        # Override actions with notify_dict
+        if self._notify_dict and lparam in self._notify_dict:
+            self._notify_dict[lparam](self)
+        # Can be overridden
+        elif lparam == WM_LBUTTONDBLCLK:
             self._execute_menu_option(self._default_menu_index + SysTrayIcon.FIRST_ID)
-        elif lparam == WM_RBUTTONUP:
-            self._show_menu()
         elif lparam == WM_LBUTTONUP:
             pass
+
+        # Always run
+        if lparam == WM_RBUTTONUP:
+            self._show_menu()
+
         return True
 
     def _show_menu(self):
