@@ -2,10 +2,9 @@ import subprocess
 
 from functools import partial
 
-import wsl_operations as wsl
-
-from systray import SysTrayIcon
-from systray.win32_adapter import *
+from . import wsl_operations as wsl
+from .systray import SysTrayIcon
+from .systray.win32_adapter import WM_LBUTTONDBLCLK, WM_RBUTTONUP
 
 APP = "wsl-tray"
 APP_DISPLAY = "WSL Tray"
@@ -52,7 +51,7 @@ NOTIFY_DICT = {
 }
 
 
-if __name__ == "__main__":
+def main():
     systray = SysTrayIcon("icon.ico",
                           APP_DISPLAY,
                           menu_options=tuple(),

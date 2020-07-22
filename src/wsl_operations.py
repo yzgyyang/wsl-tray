@@ -33,13 +33,13 @@ def toggle_state(distro_name):
     return None
 
 
-def terminate_all():
+def terminate_all(*args):
     info = get_all_states()
     for distro_name, i in info.items():
         if i["state"] != "Stopped":
             terminate_distro(distro_name)
 
 
-def shutdown_all():
+def shutdown_all(*args):
     cmd = ["wsl", "--shutdown"]
     return subprocess.run(cmd)
