@@ -70,6 +70,7 @@ SM_CXSMICON = 49
 SM_CYSMICON = 50
 COLOR_MENU = 4
 DI_NORMAL = 3
+MFT_SEPARATOR = 0x00000800
 
 WPARAM = ctypes.wintypes.WPARAM
 LPARAM = ctypes.wintypes.LPARAM
@@ -148,6 +149,9 @@ class NOTIFYICONDATA(ctypes.Structure):
 def PackMENUITEMINFO(text=None, hbmpItem=None, wID=None, hSubMenu=None):
     res = MENUITEMINFO()
     res.cbSize = ctypes.sizeof(res)
+    if text == "-----":
+        res.fType = MFT_SEPARATOR
+        return res
     res.fMask = 0
     if hbmpItem is not None:
         res.fMask |= MIIM_BITMAP
