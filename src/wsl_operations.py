@@ -1,8 +1,15 @@
 import subprocess
 
+from .pyi_patch import subprocess_args
+
+
+def run_cmd(cmd):
+    return subprocess.run(cmd, **subprocess_args())
+
+
 def get_all_states():
     cmd = ["wsl", "--list", "--verbose"]
-    stdout = subprocess.run(cmd, capture_output=True).stdout.decode("utf-16-le")
+    stdout = subprocess.run(cmd, **subprocess_args()).stdout.decode("utf-16-le")
     info_list = [x.strip().split()[-3:] for x in stdout.strip().split("\r\n")][1:]
     info = {x[0]: {"state": x[1], "version": x[2]} for x in info_list}
     return info
@@ -20,7 +27,7 @@ def start_distro(distro_name):
 
 def terminate_distro(distro_name):
     cmd = ["wsl", "--terminate", distro_name]
-    return subprocess.run(cmd)
+    return run_cmd(cmd)
 
 
 def toggle_state(distro_name):
@@ -42,4 +49,4 @@ def terminate_all(*args):
 
 def shutdown_all(*args):
     cmd = ["wsl", "--shutdown"]
-    return subprocess.run(cmd)
+    return run_cmd(cmd)
