@@ -51,8 +51,8 @@ NOTIFY_DICT = {
 }
 
 
-def main():
-    systray = SysTrayIcon("icon.ico",
+def main(icon="icon.ico"):
+    systray = SysTrayIcon(icon,
                           APP_DISPLAY,
                           menu_options=tuple(),
                           on_quit=no_action,
