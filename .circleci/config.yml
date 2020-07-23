@@ -1,0 +1,13 @@
+version: 2.1
+
+orbs:
+  win: circleci/windows@2.2.0
+
+jobs:
+  build:
+    executor: win/default
+    steps:
+        - checkout
+        - run: choco install python3 --version=3.8.5 -y
+        - run: pip install pyinstaller pywin32
+        - run: pyinstaller --onefile --clean --noconsole --add-data 'icon.ico;.' --icon icon.ico --hidden-import pkg_resources wsl-tray.py
