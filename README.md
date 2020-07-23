@@ -1,6 +1,6 @@
-# wsl-tray
+# wsl-tray ![pypi](https://img.shields.io/pypi/v/wsl-tray)
 
-![pypi](https://img.shields.io/pypi/v/wsl-tray)
+<a href="https://www.buymeacoffee.com/yzgyyang" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important; width: auto !important;" ></a>
 
 wsl-tray is a lightweight Windows tray application for easily managing WSL 2 VMs.
 
@@ -23,19 +23,9 @@ Whenever you need to conveniently terminate all WSL 2 VMs to free resources from
 
 ## Get the App
 
-### Download the Binary
-
 Head to [Release](https://github.com/yzgyyang/wsl-tray/releases) to download the latest release version. 
 
 Put a link to the file to Startup so it can quietly start with the system.
-
-### Install from PyPI
-
-Alternatively, if you already have Python 3.7+ installed, use [pip](https://pip.pypa.io/en/stable/) to install wsl-tray.
-
-```bash
-pip install wsl-tray
-```
 
 ## Credits
 
