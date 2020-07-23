@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="wsl-tray",
-    version="0.1",
+    version="0.2",
     author="Guangyuan Yang",
     author_email="yzgyyang@outlook.com",
     description="wsl-tray is a lightweight Windows tray application for easily managing WSL 2 VMs.",
