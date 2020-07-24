@@ -1,9 +1,16 @@
 version: 2.1
 
 orbs:
+  python: circleci/python@0.3.2
   win: circleci/windows@2.2.0
 
 jobs:
+  check:
+    executor: python/default
+    steps:
+        - checkout
+        - run: pip install flake8
+        - run: flake8 . --exclude=./src/systray
   build:
     executor: win/default
     steps:
@@ -11,3 +18,9 @@ jobs:
         - run: choco install python3 --version=3.8.5 -y
         - run: pip install pyinstaller pywin32
         - run: pyinstaller --onefile --clean --noconsole --add-data 'icon.ico;.' --icon icon.ico --hidden-import pkg_resources --version-file version_info.txt wsl-tray.py
+
+workflows:
+  check_and_build:
+    jobs:
+        - check
+        - build
