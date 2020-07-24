@@ -1,4 +1,8 @@
-# wsl-tray ![pypi](https://img.shields.io/pypi/v/wsl-tray)
+# wsl-tray
+
+![pypi](https://img.shields.io/pypi/v/wsl-tray)
+![circleci](https://img.shields.io/circleci/build/github/yzgyyang/wsl-tray)
+![download](https://img.shields.io/github/downloads/yzgyyang/wsl-tray/total)
 
 <a href="https://www.buymeacoffee.com/yzgyyang" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important; width: auto !important;" ></a>
 
