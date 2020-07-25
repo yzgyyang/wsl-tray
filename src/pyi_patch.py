@@ -1,21 +1,25 @@
-# Imported from: https://github.com/pyinstaller/pyinstaller/wiki/Recipe-subprocess
+# Imported from:
+# https://github.com/pyinstaller/pyinstaller/wiki/Recipe-subprocess
 
 import subprocess
 import os
-import sys
 
-# Create a set of arguments which make a ``subprocess.Popen`` (and
-# variants) call work with or without Pyinstaller, ``--noconsole`` or
-# not, on Windows and Linux. Typical use::
-#
-#   subprocess.call(['program_to_run', 'arg_1'], **subprocess_args())
-#
-# When calling ``check_output``::
-#
-#   subprocess.check_output(['program_to_run', 'arg_1'],
-#                           **subprocess_args(False))
+
 def subprocess_args(include_stdout=True):
-    # The following is true only on Windows.
+    """
+    Create a set of arguments which make a ``subprocess.Popen`` (and
+    variants) call work with or without Pyinstaller, ``--noconsole`` or
+    not, on Windows and Linux. Typical use::
+
+    subprocess.call(['program_to_run', 'arg_1'], **subprocess_args())
+
+    When calling ``check_output``::
+
+    subprocess.check_output(['program_to_run', 'arg_1'],
+                            **subprocess_args(False))
+
+    The following is true only on Windows.
+    """
     if hasattr(subprocess, 'STARTUPINFO'):
         # On Windows, subprocess calls will pop up a command window by default
         # when run from Pyinstaller with the ``--noconsole`` option. Avoid this
@@ -35,7 +39,7 @@ def subprocess_args(include_stdout=True):
     #     File "test_subprocess.py", line 58, in <module>
     #       **subprocess_args(stdout=None))
     #     File "C:\Python27\lib\subprocess.py", line 567, in check_output
-    #       raise ValueError('stdout argument not allowed, it will be overridden.')
+    #       raise ValueError('stdout argument not allowed, will be overridden')
     #   ValueError: stdout argument not allowed, it will be overridden.
     #
     # So, add it only if it's needed.
@@ -51,20 +55,5 @@ def subprocess_args(include_stdout=True):
     ret.update({'stdin': subprocess.PIPE,
                 'stderr': subprocess.PIPE,
                 'startupinfo': si,
-                'env': env })
+                'env': env})
     return ret
-
-# A simple test routine. Compare this output when run by Python, Pyinstaller,
-# and Pyinstaller ``--noconsole``.
-"""
-if __name__ == '__main__':
-    # Save the output from invoking Python to a text file. This is the only
-    # option when running with ``--noconsole``.
-    with open('out.txt', 'w') as f:
-        try:
-            txt = subprocess.check_output(['python', '--help'],
-                                          **subprocess_args(False))
-            f.write(txt)
-        except OSError as e:
-            f.write('Failed: ' + str(e))
-"""

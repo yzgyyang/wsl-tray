@@ -31,7 +31,10 @@ def no_action(systray):
 def update_menu(systray):
     # Distros
     info = wsl.get_all_states()
-    menu_options = tuple([(f"[{v['state']}] {name}", None, partial(toggle_wsl_state, name)) for name, v in info.items()])
+    menu_options = tuple([
+        (f"[{v['state']}] {name}", None, partial(toggle_wsl_state, name))
+        for name, v in info.items()
+    ])
     menu_options += (("-----", None, no_action),)
 
     # Start/Stop all
