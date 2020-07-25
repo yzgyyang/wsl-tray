@@ -9,8 +9,9 @@ def run_cmd(cmd):
 
 def get_all_states():
     cmd = ["wsl", "--list", "--verbose"]
-    stdout = subprocess.run(cmd, **subprocess_args()).stdout.decode("utf-16-le")
-    info_list = [x.strip().split()[-3:] for x in stdout.strip().split("\r\n")][1:]
+    stdout = run_cmd(cmd).stdout.decode("utf-16-le")
+    lines = stdout.strip().split("\r\n")[1:]
+    info_list = [x.strip().split()[-3:] for x in lines]
     info = {x[0]: {"state": x[1], "version": x[2]} for x in info_list}
     return info
 
@@ -36,7 +37,7 @@ def toggle_state(distro_name):
         return start_distro(distro_name)
     elif state == "Running":
         return terminate_distro(distro_name)
-    
+
     return None
 
 
